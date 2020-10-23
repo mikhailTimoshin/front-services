@@ -1,5 +1,12 @@
 import FrameImpl from "./Entities/Frame/FrameImpl";
 
 export class Frame implements FrameImpl {
-    name: '23'
+    name: string;
+    constructor() {
+        this.name = '23'
+    }
+
+    public getName() {
+        return this.name
+    }
 }

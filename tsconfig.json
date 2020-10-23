@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/",
     "target": "es5",
     "module": "commonjs",
     "noImplicitAny": true,
     "sourceMap": true,
-    "allowJs": true
+    "allowJs": true,
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   },
   "exclude": [
     "node_modules"

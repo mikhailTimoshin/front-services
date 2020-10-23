@@ -2,10 +2,10 @@ module.exports = {
   moduleFileExtensions: ['js', 'ts', 'json'],
   verbose: true,
   transform: {
-    '^.+\\.js$': 'babel-jest'
+    '^.+\\.ts$': 'ts-jest'
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/tests/$1'
+    '^@src(.*)$': '<rootDir>/src$1'
   },
   testMatch: [
     '**/tests/**/*.spec.ts',

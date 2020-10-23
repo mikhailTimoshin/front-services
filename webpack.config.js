@@ -7,20 +7,13 @@ module.exports = {
         test: /\.ts?$/,
         use: 'ts-loader',
         exclude: '/node_modules'
-      },
-      {
-        test: /\.ts?$/,
-        exclude: '/node_modules',
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-typescript']
-          }
-        }
       }
     ]
   },
   resolve: {
+    alias: {
+      '@src': path.resolve(__dirname, 'src/')
+    },
     extensions: ['.ts']
   },
   output: {
