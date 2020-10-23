@@ -7,11 +7,21 @@ module.exports = {
         test: /\.ts?$/,
         use: 'ts-loader',
         exclude: '/node_modules'
+      },
+      {
+        test: /\.ts?$/,
+        exclude: '/node_modules',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-typescript']
+          }
+        }
       }
     ]
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts']
   },
   output: {
     filename: 'frame.js',
