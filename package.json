@@ -4,6 +4,8 @@
   "description": "multimodal framework",
   "main": "index.js",
   "scripts": {
+    "server": "node ../server/app.js",
+    "dev": "webpack --watch --config webpack.config.js",
     "build": "webpack --config webpack.config.js",
     "lint": "eslint --cache --ext .ts src",
     "test": "jest"

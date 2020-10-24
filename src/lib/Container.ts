@@ -1,66 +1,51 @@
-export enum StaticTypes {
-    static = 'static',
-    dynamic = 'dynamic'
-}
-
-export interface Module {
-    name: string
-    src: string
-}
+import { Module } from '@src/types/frame.types'
 
 export default class Container {
-    private target: Element
-    private modules: Module[]
-    private activeModules: Module[]
+    private static modules: Module[] = []
 
-    constructor(modules: Module[]) {
-        this.modules = modules
-        this.target = document.getElementsByTagName('head')?.[0]
+    public static getModules() {
+        return this.modules
     }
 
-    private exist(moduleName: string): Element {
-        return this.target.children.namedItem(moduleName)
+    public static add(module: Module): void {
+        if (!this.find(module.name)) {
+            this.modules.push(module)
+        }
     }
 
-    private createModule(moduleName: string): Element {
-        const module = document.createElement('script')
-        module.id = moduleName
-        module.src = this.modules.find(item => item.name == moduleName)?.src
-        return module
+    public static delete(module: Module): void {
+        if (this.find(module.name)) {
+            this.modules.splice(this.modules.indexOf(module), 1)
+        }
     }
 
-    private async createNativeModule(moduleName: string): Promise<string> {
-        const response = await new Promise((res) => {
-            const file = new XMLHttpRequest();
-            file.open("GET", this.modules.find(item => item.name == moduleName)?.src, true);
-            file.onreadystatechange = function() {
-                if (file.readyState === 4) {
-                    res(file.responseText);
+    public static find(moduleName: string): Module {
+        return this.modules.find(item => item.name === moduleName)
+    }
+
+    public static createScriptModule(module: Module): Element {
+        let scriptModule = document.createElement('script')
+            scriptModule.id = module.name
+            scriptModule.src = module.src
+        return scriptModule
+    }
+
+    public static async createNativeModule(module: Module): Promise<string> {
+        return await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', module.src, true)
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    resolve(xhr.responseText)
+                } else {
+                    reject(new Error("ECONNREFUSED"))
                 }
             }
-            file.send();
+            xhr.onerror = () => {
+                reject(new Error("ECONNREFUSED"))
+            }
+            xhr.send()
         })
-        return response.toString()
-    }
 
-    public async mount(moduleName: string, staticType: StaticTypes = StaticTypes.dynamic): Promise<void> {
-        if (!this.exist(moduleName)) {
-            if (staticType === StaticTypes.dynamic) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const context = eval(await this.createNativeModule(moduleName) + ' this.window')
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
-                console.log(new context.Vue({ template: '<div>1</div>'}).$mount('#frame'))
-            }
-            if (staticType === StaticTypes.static) {
-                this.target.append(this.createModule(moduleName))
-            }
-        }
-    }
-
-    public umount(moduleName: string): void {
-        const module = this.exist(moduleName)
-        if (module) {
-            module.remove()
-        }
     }
 }
