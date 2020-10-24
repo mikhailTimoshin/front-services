@@ -1,12 +1,13 @@
 const path = require('path')
+
 module.exports = {
   entry: './src/main.ts',
   module: {
     rules: [
       {
-        test: /\.ts?$/,
+        test: /\.(ts|tsx)?$/,
         use: 'ts-loader',
-        exclude: '/node_modules'
+        exclude: '/node_modules',
       }
     ]
   },
@@ -14,7 +15,7 @@ module.exports = {
     alias: {
       '@src': path.resolve(__dirname, 'src/')
     },
-    extensions: ['.ts']
+    extensions: ['.ts', '.tsx']
   },
   output: {
     filename: 'frame.js',

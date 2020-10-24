@@ -1,12 +1,3 @@
-import FrameImpl from "./Entities/Frame/FrameImpl";
-
-export class Frame implements FrameImpl {
-    name: string;
-    constructor() {
-        this.name = '23'
-    }
-
-    public getName() {
-        return this.name
-    }
-}
+import Container, { StaticTypes } from "@src/lib/Container";
+const modules = new Container([{ name: 'vue', src: 'https://ru.vuejs.org/js/vue.js'}])
+void modules.mount('vue', StaticTypes.dynamic)
