@@ -20,7 +20,6 @@ describe('Container tests', () => {
         expect(scriptNode.nodeName.toLowerCase()).toEqual('script')
         expect(scriptNode.getAttribute('src')).toEqual(module.src)
     })
-
     test( 'Container can add module as string element', () => {
        return Container.createNativeModule(module)
            .then((res) => expect(res).toBeTruthy())
