@@ -17,10 +17,3 @@ export interface Service extends Module {
     context: Context,
     node: Element
 }
-
-export interface FrameImp {
-    getModules(): Module[]
-    getActiveModules(): Module[]
-    mountModule(moduleName: string, moduleType: StaticTypes): void
-    umountModule(moduleName: string): void
-}
