@@ -1,7 +1,7 @@
 {
-  "name": "frame",
-  "version": "0.0.1",
-  "description": "multimodal framework",
+  "name": "front-services",
+  "version": "0.9.1",
+  "description": "Library for creating microservices of front-end",
   "main": "index.js",
   "scripts": {
     "server": "node ../server/app.js",
@@ -10,7 +10,7 @@
     "lint": "eslint --cache --ext .ts src",
     "test": "jest"
   },
-  "author": "",
+  "author": "Mikhail Timoshin",
   "license": "ISC",
   "dependencies": {
     "typescript": "^4.0.3"
