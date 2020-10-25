@@ -1,4 +1,5 @@
 import ServiceTransformer from './lib/ServiceTransformer'
+import Container from './lib/Container'
 
 export default class extends ServiceTransformer {
   /**
@@ -7,6 +8,7 @@ export default class extends ServiceTransformer {
    */
   constructor(modules) {
     super(modules);
+    this.container = new Container()
   }
   
   /**
@@ -18,11 +20,11 @@ export default class extends ServiceTransformer {
     const foundModule = this.getModule(moduleName)
     if (foundModule) {
       if (foundModule.type === 'dynamic') {
-        const stringContext = await this.container.createNativeModule(foundModule)
+        const stringContext = await Container.createNativeModule(foundModule)
         this.addService(foundModule, stringContext)
       }
       if(foundModule.type === 'static') {
-        const scriptContext = this.container.createScriptModule(foundModule)
+        const scriptContext = Container.createScriptModule(foundModule)
         this.moduleTarget.appendChild(scriptContext)
         this.addService(foundModule, "", scriptContext)
       }
