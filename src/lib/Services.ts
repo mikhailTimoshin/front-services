@@ -1,5 +1,5 @@
-import Frame from '@src/lib/Frame'
 import {Context, Module, Service, StaticTypes} from '@src/types/frame.types'
+import Frame from '@src/lib/Frame'
 import Container from '@src/lib/Container'
 
 export default class Services extends Frame {
