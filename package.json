@@ -1,6 +1,6 @@
 {
   "name": "front-services",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Library for creating microservices of front-end",
   "main": "index.js",
   "repository": {
