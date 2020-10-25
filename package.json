@@ -8,8 +8,16 @@
     "lint": "eslint --cache --ext .ts src",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikhailTimoshin/front-services.git"
+  },
   "author": "Mikhail Timoshin",
-  "license": "ISC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikhailTimoshin/front-services/issues"
+  },
+  "homepage": "https://github.com/mikhailTimoshin/front-services",
   "dependencies": {
     "typescript": "^4.0.3"
   },
