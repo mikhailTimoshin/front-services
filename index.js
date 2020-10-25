@@ -18,11 +18,11 @@ export default class extends ServiceTransformer {
     const foundModule = this.getModule(moduleName)
     if (foundModule) {
       if (foundModule.type === 'dynamic') {
-        const stringContext = await super.container.createNativeModule(foundModule)
+        const stringContext = await this.container.createNativeModule(foundModule)
         this.addService(foundModule, stringContext)
       }
       if(foundModule.type === 'static') {
-        const scriptContext = super.container.createScriptModule(foundModule)
+        const scriptContext = this.container.createScriptModule(foundModule)
         this.moduleTarget.appendChild(scriptContext)
         this.addService(foundModule, "", scriptContext)
       }
