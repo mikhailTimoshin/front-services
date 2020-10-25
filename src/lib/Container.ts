@@ -3,7 +3,7 @@ import { Module } from '@src/types/frame.types'
 export default class Container {
     private static modules: Module[] = []
 
-    public static getModules() {
+    public static getModules(): Module[] {
         return this.modules
     }
 
@@ -24,9 +24,9 @@ export default class Container {
     }
 
     public static createScriptModule(module: Module): Element {
-        let scriptModule = document.createElement('script')
-            scriptModule.id = module.name
-            scriptModule.src = module.src
+        const scriptModule = document.createElement('script')
+        scriptModule.id = module.name
+        scriptModule.src = module.src
         return scriptModule
     }
 
@@ -46,6 +46,5 @@ export default class Container {
             }
             xhr.send()
         })
-
     }
 }

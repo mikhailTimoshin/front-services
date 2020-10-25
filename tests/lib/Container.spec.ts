@@ -1,7 +1,5 @@
 import Container from '@src/lib/Container'
-import { StaticTypes, Module } from '@src/types/frame.types'
-
-const module = { name: 'test', src: 'http://localhost', type: StaticTypes.dynamic } as Module
+import { moduleMoc as module } from './mocs/testMocs';
 
 describe('Container tests', () => {
     test('Container can get modules list', () => {
@@ -11,7 +9,13 @@ describe('Container tests', () => {
         Container.add(module)
         expect(Container.find(module.name)).toEqual(module)
     })
+    test('Container cant add duplicate module', () => {
+        Container.add(module)
+        Container.add(module)
+        expect(Container.getModules().length).toEqual(1)
+    })
     test('Container can delete module from store', () => {
+        Container.add(module)
         Container.delete(module)
         expect(Container.find(module.name)).toEqual(undefined)
     })
@@ -23,6 +27,6 @@ describe('Container tests', () => {
     test( 'Container can add module as string element', () => {
        return Container.createNativeModule(module)
            .then((res) => expect(res).toBeTruthy())
-           .catch((e) => expect(e.message).toMatch('ECONNREFUSED'))
+           .catch((e: Error) => expect(e.message).toMatch('ECONNREFUSED'))
     })
 })

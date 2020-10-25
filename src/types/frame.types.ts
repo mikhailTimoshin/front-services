@@ -9,6 +9,14 @@ export interface Module {
     type: StaticTypes
 }
 
+export interface Service extends Module {
+    context: Window
+}
+
+export interface Script extends Module {
+    getNode(): Element
+}
+
 export interface FrameImp {
     getModules(): Module[]
     getActiveModules(): Module[]
