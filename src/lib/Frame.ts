@@ -1,7 +1,8 @@
 import { Module } from '@src/types/frame.types'
 
 export default class Frame {
-    protected modulesList
+    protected modulesList: Module[] = []
+    protected moduleTarget: Element = document.getElementsByTagName('head')?.[0]
 
     constructor(modules: Module[]) {
         this.modulesList = modules

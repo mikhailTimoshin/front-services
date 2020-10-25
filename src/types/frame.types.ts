@@ -3,6 +3,10 @@ export enum StaticTypes {
     dynamic = 'dynamic'
 }
 
+export interface Context {
+    mount(nodeName: string): void
+}
+
 export interface Module {
     name: string
     src: string,
@@ -10,11 +14,8 @@ export interface Module {
 }
 
 export interface Service extends Module {
-    context: Window
-}
-
-export interface Script extends Module {
-    getNode(): Element
+    context: Context,
+    node: Element
 }
 
 export interface FrameImp {
