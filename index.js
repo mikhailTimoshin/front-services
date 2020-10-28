@@ -1,40 +1,36 @@
-import ServiceTransformer from './lib/ServiceTransformer'
-import ServiceState from './lib/ServiceState'
-import Container from './lib/Container'
+import Modules from './lib/modules/moduleLib'
+import Services from './lib/services/serviceLib'
 
-export default class extends ServiceTransformer {
-  /**
-   *
-   * @param modules
-   */
-  constructor(modules) {
-    super(modules);
+export default class {
+  constructor(modulesList = []) {
+    this.modules = new Modules()
+    this.services = new Services()
+    this.autoWireModules(modulesList)
   }
-  
-  /**
-   *
-   * @param moduleName
-   * @return {Promise<*|null>}
-   */
-  async load(moduleName) {
-    const foundModule = this.getModule(moduleName)
-    if (foundModule) {
-      if (!ServiceState.isProcess(foundModule.name)) {
-        ServiceState.addProcess(foundModule.name)
-        if (!this.existService(foundModule)) {
-          if (foundModule.type === 'dynamic') {
-            const stringContext = await Container.createNativeModule(foundModule)
-            this.addService(foundModule, stringContext)
-          }
-          if(foundModule.type === 'static') {
-            const scriptContext = Container.createScriptModule(foundModule)
-            this.moduleTarget.appendChild(scriptContext)
-            this.addService(foundModule, "", scriptContext)
-          }
-          ServiceState.deleteProcess(foundModule.name)
-        }
+  autoWireModules(modulesList) {
+    this.modules.clear()
+    modulesList.forEach((module) => {
+      if (!this.modules.exist(module)) this.modules.add(module)
+    })
+  }
+  getInitModules() {
+    return this.modules.getList()
+  }
+  getServices() {
+    return this.services.getList()
+  }
+  load(moduleName) {
+    const foundedModule = this.modules.getModuleByName(moduleName)
+    if (foundedModule) {
+      if (foundedModule.type === 'dynamic') {
+        const context = this.module.createVirtualModule(foundedModule)
+        this.services.activate(foundedModule, context)
+      }
+      if (foundedModule.type === 'static') {
+        const node = this.module.createScriptModule(foundedModule)
+        this.services.activate(foundedModule, "", node)
       }
     }
-    return this.getService(moduleName)
+    return this.services.find(moduleName)
   }
 }
