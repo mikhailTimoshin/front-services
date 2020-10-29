@@ -31,6 +31,6 @@ export default class {
         this.services.activate(foundedModule, "", node)
       }
     }
-    return this.services.find(foundedModule)
+    return this.services.find(foundedModule)?.context
   }
 }
