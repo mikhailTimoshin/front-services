@@ -1,4 +1,4 @@
-# FRONT-SERVICE
+# FRONT-SERVICES
 Front-end microservices is real and very simple for use.
 
 First-step: install front-services.
